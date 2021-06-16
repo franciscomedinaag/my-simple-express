@@ -1,25 +1,22 @@
 //const exampleLibrary = require('./lib/example_lib');
+
+// let configLib = {
+  //   'hostname': process.env.HOSTNAME,
+  //   'user': process.env.USERNAME,
+  //   'pass': process.env.PASSWORD
+// };
+  
+//libManager = new exampleLibrary(configLib);
+  
 const express = require("express");
 require('dotenv').config();
 
-
-// let configLib = {
-//   'hostname': process.env.HOSTNAME,
-//   'user': process.env.USERNAME,
-//   'pass': process.env.PASSWORD
-// };
-
-//libManager = new exampleLibrary(configLib);
-
-
 const app = express();
 const PORT = process.env.PORT || 5000;
+const exampleRoutes = require("./routes/subruta.js");
 
-app.use(express.urlencoded({
-  extended: false
-}));
 
-app.use(express.json());
+app.use("/subruta", exampleRoutes);
 
 app.post("/", (request, res) => {
   console.log(request.body);
@@ -28,6 +25,12 @@ app.post("/", (request, res) => {
 
 app.get("/", (req, res) => {
   res.sendStatus(200);
+})
+
+app.all('*', (req, res) => {
+  console.log(`403: Someone attempted at ${req.path}`);
+  res.status(403);
+  res.end();
 })
 
 app.listen(PORT, () => {
