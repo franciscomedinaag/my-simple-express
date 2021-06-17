@@ -16,10 +16,11 @@ const PORT = process.env.PORT || 5000;
 const exampleRoutes = require("./routes/subruta.js");
 
 
+app.use(express.json());
 app.use("/subruta", exampleRoutes);
 
 app.post("/", (request, res) => {
-  console.log(request.body);
+  console.log(request.body)
   res.sendStatus(200);
 });
 
