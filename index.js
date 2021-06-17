@@ -16,7 +16,9 @@ const PORT = process.env.PORT || 5000;
 const exampleRoutes = require("./routes/subruta.js");
 
 
-app.use(express.json());
+app.use(express.json({
+  limit: '256mb'
+}));
 app.use("/subruta", exampleRoutes);
 
 app.post("/", (request, res) => {
